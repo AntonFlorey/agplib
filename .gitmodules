@@ -6,3 +6,7 @@
 	path = extern/TinyAD
 	url = git@github.com:patr-schm/TinyAD.git
 	branch = main
+[submodule "extern/eigen"]
+	path = extern/eigen
+	url = https://gitlab.com/libeigen/eigen.git
+	branch = master
