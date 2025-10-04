@@ -1,0 +1,51 @@
+name: BuildAdd commentMore actions
+
+on: [push, pull_request]
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: true
+    strategy:
+      matrix:
+        # macos-13 is an intel runner, macos-14 is apple silicon
+        os: [macos-13, macos-14, windows-latest, ubuntu-latest, ubuntu-24.04-arm]
+        python-version: ['3.11']
+
+    steps:
+      # Checkout the repo with submodules
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Set up OpenMP env (macOS)
+        if: runner.os == 'macOS'
+        id: libomp
+        run: |
+          brew install libomp
+          echo "LIBOMP_PREFIX=$(brew --prefix libomp)" >> $GITHUB_ENV
+          echo "Path prefix of libomp: $(brew --prefix libomp)"
+      
+      - name: Set MACOSX_DEPLOYMENT_TARGET
+        if: runner.os == 'macOS'
+        id: macosdeployment
+        run: |
+          if [[ "${{ matrix.os }}" == "macos-13" ]]; then
+            echo "macosx_deploy_target=13.0" >> $GITHUB_OUTPUT
+          else
+            echo "macosx_deploy_target=14.0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.23.3
+        env:
+          CIBW_BUILD: "cp311-*"
+          MACOSX_DEPLOYMENT_TARGET: ${{ steps.macosdeployment.outputs.macosx_deploy_target }}
+          CIBW_TEST_REQUIRES: "pytest"
+          CIBW_TEST_COMMAND: "pytest {project}/tests/"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl
