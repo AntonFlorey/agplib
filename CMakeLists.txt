@@ -41,6 +41,8 @@ include_directories("src")
 pybind11_add_module (
     agplib
     src/module.cpp
+    src/utils/curvature.cpp
+    src/utils/tangentspace.cpp
 )
 
 target_link_libraries(
