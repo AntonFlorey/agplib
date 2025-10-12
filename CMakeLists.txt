@@ -43,6 +43,8 @@ pybind11_add_module (
     src/module.cpp
     src/utils/curvature.cpp
     src/utils/tangentspace.cpp
+    src/utils/misc.cpp
+    src/crossfield/surfacegraph.cpp
 )
 
 target_link_libraries(

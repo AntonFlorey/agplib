@@ -6,14 +6,15 @@
  * Authors: Anton Florey
  */
 
+#include "module.hh"
+#include "utils/curvature.hh"
+#include "crossfield/surfacegraph.hh"
+
 #include <iostream>
 #include <pybind11/pybind11.h>
 #include <pybind11/eigen.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
-
-#include "module.hh"
-#include "utils/curvature.hh"
 
 namespace py = pybind11;
 
@@ -38,12 +39,21 @@ PYBIND11_MODULE(agplib, m)
 
     py::class_<TangentSpace>(m, "TangentSpace")
         .def(py::init())
-        .def(py::init<const Vec3d&, const Vec3d&, const Vec3d&>())
-        .def(py::init<const Vec3d&, const Vec3d&>());
+        .def(py::init<const Vec3d&, const Vec3d&>())
+        .def(py::init<const Vec3d&, const Vec3d&, const Vec3d&>());
     
     py::class_<PrincipalCurvatureInfo>(m, "PrincipalCurvatureInfo")
         .def_readonly("direction", &PrincipalCurvatureInfo::direction)
         .def_readonly("unambiguity", &PrincipalCurvatureInfo::unambiguity);
+
+    py::class_<SurfaceGraphNode>(m, "SurfaceGraphNode")
+        .def(py::init<const double, const Vec3d&>());
+
+    py::class_<SurfaceGraph>(m, "SurfaceGraph")
+        .def(py::init())
+        .def("add_node", &SurfaceGraph::add_node)
+        .def("add_edge", &SurfaceGraph::add_edge)
+        .def("number_of_nodes", &SurfaceGraph::number_of_nodes);
 
     m.def("approximate_II_fundamental_form", &approximate_II_fundamental_form, "Approximates the second fundamental form of a face with a least squares approach.");
     m.def("compute_principal_curvature", py::overload_cast<const std::vector<VertexWithNormal>&, const TangentSpace&>(&compute_principal_curvature),

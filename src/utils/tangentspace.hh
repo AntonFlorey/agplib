@@ -21,9 +21,7 @@ struct TangentSpace
 
 	TangentSpace();
 
-	TangentSpace(const Vec3d& _origin, const Vec3d& _xAxis, const Vec3d& _yAxis);
-
-	TangentSpace(const Vec3d& _xAxis, const Vec3d& _yAxis);
+	TangentSpace(const Vec3d& _xAxis, const Vec3d& _yAxis, const Vec3d& _origin = Vec3d::Zero());
 
 	TangentSpace(const TangentSpace& _other);
 };
