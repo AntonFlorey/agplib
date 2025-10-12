@@ -9,6 +9,7 @@
 #include "module.hh"
 #include "utils/curvature.hh"
 #include "crossfield/surfacegraph.hh"
+#include "crossfield/crossfield.hh"
 
 #include <iostream>
 #include <pybind11/pybind11.h>
@@ -55,11 +56,22 @@ PYBIND11_MODULE(agplib, m)
         .def("add_edge", &SurfaceGraph::add_edge)
         .def("number_of_nodes", &SurfaceGraph::number_of_nodes);
 
+    py::class_<CrossConstraint>(m, "CrossConstraint")
+        .def(py::init<const double, const Vec3d&, const SurfaceGraph::NodeID>());
+
     m.def("approximate_II_fundamental_form", &approximate_II_fundamental_form, "Approximates the second fundamental form of a face with a least squares approach.");
     m.def("compute_principal_curvature", py::overload_cast<const std::vector<VertexWithNormal>&, const TangentSpace&>(&compute_principal_curvature),
         "computes the principal curvature direction and unambiguity score of a given face.");
     m.def("compute_principal_curvature", py::overload_cast<const std::vector<VertexWithNormal>&, const Vec3d&>(&compute_principal_curvature),
         "computes the principal curvature direction and unambiguity score of a given face.");
+    m.def("compute_crossfield", &compute_crossfield, "computes a smooth crossfield in the given surface", 
+        py::arg("surface"),
+        py::arg("constraints"),
+        py::arg("max_iters")=10,
+        py::arg("max_multires_layers")=10,
+        py::arg("merge_normal_dot_th")=0.5,
+        py::arg("convergence_eps")=1e-6);
+
 
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);

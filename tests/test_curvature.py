@@ -23,7 +23,7 @@ def test_planar_quad_curvature():
     print("Principal curvature direction info:", principal_curvature_info_v1.direction, principal_curvature_info_v1.unambiguity)
     print("The same info:", principal_curvature_info_v2.direction, principal_curvature_info_v2.unambiguity)
 
-    assert principal_curvature_info_v1.unambiguity == principal_curvature_info_v2.unambiguity
+    assert np.allclose(principal_curvature_info_v1.unambiguity, principal_curvature_info_v2.unambiguity)
 
 def test_curved_quad_curvature():
     # simple test with a quad with some positive curvature in x-direction
@@ -47,6 +47,6 @@ def test_curved_quad_curvature():
     print("Principal curvature direction info:", principal_curvature_info_v1.direction, principal_curvature_info_v1.unambiguity)
     print("The same info:", principal_curvature_info_v2.direction, principal_curvature_info_v2.unambiguity)
 
-    assert principal_curvature_info_v1.unambiguity == principal_curvature_info_v2.unambiguity
-    assert np.allclose([1], [np.abs(np.dot(principal_curvature_info_v1.direction, [0,1,0]))])
-    assert np.allclose([1], [np.abs(np.dot(principal_curvature_info_v2.direction, [0,1,0]))])
+    assert np.allclose(principal_curvature_info_v1.unambiguity, principal_curvature_info_v2.unambiguity)
+    assert np.allclose(1.0, np.abs(np.dot(principal_curvature_info_v1.direction, [0,1,0])))
+    assert np.allclose(1.0, np.abs(np.dot(principal_curvature_info_v2.direction, [0,1,0])))

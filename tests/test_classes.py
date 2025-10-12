@@ -27,3 +27,9 @@ def test_surface_graph():
     assert surface_graph.number_of_nodes() == 2
     surface_graph.add_edge(node_id_0, node_id_1)
     
+def test_cross_constraint():
+    test_direction = np.array([1,0,0])
+    test_weight = 1.0
+    test_node_id = 0
+    test_constraint = agplib.CrossConstraint(test_weight, test_direction, test_node_id)
+    print("Created a cross constraint:", type(test_constraint))

@@ -45,6 +45,7 @@ pybind11_add_module (
     src/utils/tangentspace.cpp
     src/utils/misc.cpp
     src/crossfield/surfacegraph.cpp
+    src/crossfield/crossfield.cpp
 )
 
 target_link_libraries(
