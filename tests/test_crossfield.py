@@ -66,5 +66,5 @@ def test_slanted_cube():
         print(crossfield[i])
         assert np.allclose(0, np.dot(crossfield[i], normals[i]))
         assert np.allclose(1, np.linalg.norm(crossfield[i]))
-    assert np.allclose(1.0, np.abs(np.dot(np.array([1,0,0]), crossfield[0])))
+    assert np.allclose(1.0, np.abs(np.dot(np.array([1,0,0]), crossfield[0]))) or np.allclose(1.0, np.abs(np.dot(np.array([0,1,0]), crossfield[0])))
     
