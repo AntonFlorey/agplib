@@ -64,7 +64,7 @@ PYBIND11_MODULE(agplib, m)
         "computes the principal curvature direction and unambiguity score of a given face.");
     m.def("compute_principal_curvature", py::overload_cast<const std::vector<VertexWithNormal>&, const Vec3d&>(&compute_principal_curvature),
         "computes the principal curvature direction and unambiguity score of a given face.");
-    m.def("compute_crossfield", &compute_crossfield, "computes a smooth crossfield in the given surface", 
+    m.def("compute_crossfield", &compute_crossfield, "computes a smooth crossfield in the given surface",
         py::arg("surface"),
         py::arg("constraints"),
         py::arg("max_iters")=10,

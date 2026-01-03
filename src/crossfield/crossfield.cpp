@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <Eigen/Dense>
 
+#include "TinyAD/Utils/Out.hh"
+
 namespace
 {
 
@@ -99,7 +101,7 @@ std::vector<Vec3d> compute_crossfield(
 	const double convergence_eps)
 {
 	std::vector<Vec3d> crossfield;
-	if (max_multires_layers != 0)
+	if (max_multires_layers > 0)
 	{
 		std::vector<MergeCandidate> merge_candidates;
 		if (collect_merge_candidates(surface, merge_normal_dot_th, merge_candidates))
@@ -168,14 +170,15 @@ std::vector<Vec3d> compute_crossfield(
 			double weight_sum = 0;
 			Vec3d new_crossdir = crossfield[node_id]; // just in case this is an isolated area
 
-			auto collect_crossdir = [&](const Vec3d& crossdir, const double weight, const Vec3d& normal)
+			auto collect_crossdir = [&new_crossdir, &node, &weight_sum](const Vec3d& crossdir, const double weight, const Vec3d& normal)
 			{
 				std::pair<Vec3d, Vec3d> aligned_crosses = align_crosses(new_crossdir, node.normal, crossdir, normal);
-				new_crossdir += weight_sum * aligned_crosses.first + weight * aligned_crosses.second;
+				new_crossdir = weight_sum * aligned_crosses.first + weight * aligned_crosses.second;
 				new_crossdir -= node.normal * node.normal.dot(new_crossdir);
 				new_crossdir.normalize();
 				weight_sum += weight;
 			};
+
 			for (SurfaceGraph::NodeID nb_id : surface.adj[node_id])
 			{
 				collect_crossdir(crossfield[nb_id], 1.0, surface.nodes[nb_id].normal);
