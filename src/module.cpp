@@ -29,7 +29,7 @@ int simple_test(const int n)
 
 using namespace AGPLib;
 
-PYBIND11_MODULE(agplib, m)
+PYBIND11_MODULE(_agplib, m)
 {
     m.doc() = "Anton's Geometry Processing Library: A small geometry processing package for the lazytopo Blender addon written in C++.";
         

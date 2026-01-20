@@ -39,7 +39,7 @@ include_directories("src")
 
 # module (pybind11)
 pybind11_add_module (
-    agplib
+    _agplib
     src/module.cpp
     src/utils/curvature.cpp
     src/utils/tangentspace.cpp
@@ -49,18 +49,18 @@ pybind11_add_module (
 )
 
 target_link_libraries(
-    agplib
+    _agplib
     PRIVATE Eigen3::Eigen
 )
 
 if (TARGET OpenMP::OpenMP_CXX)
     target_link_libraries(
-        agplib
+        _agplib
         PRIVATE OpenMP::OpenMP_CXX
     )
 endif()
 
 if (${AGPLIB_VERSION_INFO})
-target_compile_definitions(agplib
+target_compile_definitions(_agplib
                            PRIVATE VERSION_INFO=${AGPLIB_VERSION_INFO})
 endif()

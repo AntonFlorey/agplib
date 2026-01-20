@@ -5,8 +5,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-from setuptools import Extension, setup
+from setuptools import Extension, setup, find_packages
 from setuptools.command.build_ext import build_ext
+
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
 PLAT_TO_CMAKE = {
@@ -130,6 +131,9 @@ class CMakeBuild(build_ext):
         )
 
 setup(
-    ext_modules=[CMakeExtension("agplib")],
-    cmdclass={"build_ext": CMakeBuild}
+    ext_modules=[CMakeExtension("agplib._agplib")],
+    cmdclass={"build_ext": CMakeBuild},
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    include_package_data=True,
 )
