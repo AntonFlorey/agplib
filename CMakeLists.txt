@@ -43,7 +43,7 @@ pybind11_add_module (
     src/wrapper/bindAGPLib.cpp
     src/wrapper/bindUtil.cpp
     src/wrapper/bindPatchGraph.cpp
-    src/wrapper/bindCrossField.cpp
+    src/wrapper/bindCrossfield.cpp
     src/patchgraph/patchgraph.cpp
     src/util/tangentspace.cpp
     src/util/misc.cpp
