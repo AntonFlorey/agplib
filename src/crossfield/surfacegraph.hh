@@ -18,6 +18,8 @@
 
 namespace AGPLib
 {
+namespace Crossfield
+{
 
 struct SurfaceGraphNode
 {
@@ -47,4 +49,5 @@ std::vector<SurfaceGraph::NodeID> create_meta_graph(
 	const std::vector<std::pair<SurfaceGraph::NodeID, SurfaceGraph::NodeID>>& merge_pairs,
 	SurfaceGraph& meta_graph);
 
+}
 }

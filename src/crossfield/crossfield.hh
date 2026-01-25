@@ -19,6 +19,8 @@
 
 namespace AGPLib
 {
+namespace Crossfield
+{
 
 struct CrossConstraint
 {
@@ -33,9 +35,10 @@ struct CrossConstraint
 std::vector<Vec3d> compute_crossfield(
 	const SurfaceGraph& surface,
 	const std::vector<CrossConstraint>& constraints,
-	const size_t max_iters = 10,
-	const size_t max_multires_layers = 10,
+	const size_t max_iters = 20,
+	const size_t max_multires_layers = 100,
 	const double merge_normal_dot_th = 0.5,
 	const double convergence_eps = 1e-6);
 
+}
 }

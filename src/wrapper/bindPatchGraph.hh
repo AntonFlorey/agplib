@@ -8,14 +8,16 @@
 
 #pragma once
 
-#include "types.hh"
+#include "wrapperutils.hh"
+
+namespace py = pybind11;
 
 namespace AGPLib
 {
+namespace PythonWrapper
+{
 
-Vec3d any_orthogonal(const Vec3d& _p);
-
-Vec3d make_orthogonal_dir(const Vec3d& v, const Vec3d& normal);
+void BindPatchGraph(py::module& agplib, std::vector<std::function<void()>>& memberBindings);
 
 }
-
+}

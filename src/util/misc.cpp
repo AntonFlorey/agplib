@@ -13,7 +13,8 @@
 
 namespace AGPLib
 {
-
+namespace Util
+{
 Vec3d any_orthogonal(const Vec3d& _p)
 {
 	// Find coordinate axis spanning the largest angle with _p.
@@ -37,4 +38,5 @@ Vec3d make_orthogonal_dir(const Vec3d& v, const Vec3d& normal)
 	return (v - (v.dot(normal)) * normal).normalized();
 }
 
+}
 }

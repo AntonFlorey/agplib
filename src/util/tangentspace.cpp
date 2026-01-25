@@ -30,7 +30,7 @@ Vec3d map_point_to_world_space(const Vec2d& p, const TangentSpace& tangent_space
 
 TangentSpace compute_any_tangent_space_basis(const Vec3d& normal, const Vec3d& origin)
 {
-	const Vec3d xAx = any_orthogonal(normal);
+	const Vec3d xAx = Util::any_orthogonal(normal);
 	Vec3d yAx = normal.cross(xAx).normalized();
 
 	return TangentSpace(xAx, yAx, origin);

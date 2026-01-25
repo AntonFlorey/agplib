@@ -16,6 +16,8 @@
 
 namespace AGPLib
 {
+namespace Crossfield
+{
 
 SurfaceGraph::NodeID SurfaceGraph::add_node(const SurfaceGraphNode& node)
 {
@@ -94,4 +96,5 @@ std::vector<SurfaceGraph::NodeID> create_meta_graph(
 	return orig_node_to_meta_node_map;
 }
 
+}
 }

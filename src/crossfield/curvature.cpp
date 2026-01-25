@@ -14,6 +14,8 @@
 
 namespace AGPLib
 {
+namespace Crossfield
+{
 
 VertexWithNormal::VertexWithNormal(const Vec3d& _pos, const Vec3d& _normal)
 {
@@ -85,4 +87,5 @@ PrincipalCurvatureInfo compute_principal_curvature(const std::vector<VertexWithN
 	return compute_principal_curvature(face_verts, local_tangent_space);
 }
 
+}
 }

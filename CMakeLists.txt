@@ -40,11 +40,16 @@ include_directories("src")
 # module (pybind11)
 pybind11_add_module (
     _agplib
-    src/module.cpp
-    src/utils/curvature.cpp
-    src/utils/tangentspace.cpp
-    src/utils/misc.cpp
+    src/wrapper/bindAGPLib.cpp
+    src/wrapper/bindUtil.cpp
+    src/wrapper/bindPatchGraph.cpp
+    src/wrapper/bindCrossField.cpp
+    src/patchgraph/patchgraph.cpp
+    src/util/tangentspace.cpp
+    src/util/misc.cpp
+    src/util/convexhull.cpp
     src/crossfield/surfacegraph.cpp
+    src/crossfield/curvature.cpp
     src/crossfield/crossfield.cpp
 )
 

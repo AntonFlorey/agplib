@@ -9,9 +9,11 @@
 #pragma once
 
 #include "types.hh"
-#include "tangentspace.hh"
+#include "util/tangentspace.hh"
 
 namespace AGPLib
+{
+namespace Crossfield
 {
 
 struct VertexWithNormal
@@ -40,4 +42,5 @@ PrincipalCurvatureInfo compute_principal_curvature(const std::vector<VertexWithN
 
 PrincipalCurvatureInfo compute_principal_curvature(const std::vector<VertexWithNormal>& face_verts, const Vec3d& face_normal);
 
+}
 }

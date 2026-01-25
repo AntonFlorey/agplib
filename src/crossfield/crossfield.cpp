@@ -11,7 +11,7 @@
  */
 
 #include "crossfield.hh"
-#include "utils/misc.hh"
+#include "util/misc.hh"
 
 #include <algorithm>
 #include <Eigen/Dense>
@@ -22,6 +22,7 @@ namespace
 {
 
 using namespace AGPLib;
+using namespace AGPLib::Crossfield;
 
 using NodeToContraintMap = std::vector<std::vector<CrossConstraint>>;
 using MergePair = std::pair<SurfaceGraph::NodeID, SurfaceGraph::NodeID>;
@@ -91,7 +92,8 @@ std::pair<Vec3d,Vec3d> align_crosses(const Vec3d& crossA, const Vec3d& normalA, 
 
 namespace AGPLib
 {
-
+namespace Crossfield
+{
 std::vector<Vec3d> compute_crossfield(
 	const SurfaceGraph& surface,
 	const std::vector<CrossConstraint>& constraints,
@@ -128,7 +130,7 @@ std::vector<Vec3d> compute_crossfield(
 				double meta_node_area = meta_surface.nodes[meta_node_id].area;
 				CrossConstraint meta_constraint(
 					orig_node_area * orig_constraint.weight / meta_node_area,
-					make_orthogonal_dir(orig_constraint.direction, meta_surface.nodes[meta_node_id].normal),
+					Util::make_orthogonal_dir(orig_constraint.direction, meta_surface.nodes[meta_node_id].normal),
 					meta_node_id);
 				meta_constraints.push_back(meta_constraint);
 			}
@@ -145,7 +147,7 @@ std::vector<Vec3d> compute_crossfield(
 			for (SurfaceGraph::NodeID orig_node_id = 0; orig_node_id < surface.number_of_nodes(); orig_node_id++)
 			{
 				SurfaceGraph::NodeID meta_node_id = orig_node_to_meta_node_map[orig_node_id];
-				crossfield.push_back(make_orthogonal_dir(meta_crossfield[meta_node_id], meta_surface.nodes[meta_node_id].normal));
+				crossfield.push_back(Util::make_orthogonal_dir(meta_crossfield[meta_node_id], meta_surface.nodes[meta_node_id].normal));
 			}
 		}
 	}
@@ -155,7 +157,7 @@ std::vector<Vec3d> compute_crossfield(
 		// Initialize with random directions in tangent space
 		for (SurfaceGraph::NodeID node_id = 0; node_id < surface.number_of_nodes(); node_id++)
 		{
-			crossfield.push_back(any_orthogonal(surface.nodes[node_id].normal));
+			crossfield.push_back(Util::any_orthogonal(surface.nodes[node_id].normal));
 		}
 	}
 
@@ -200,4 +202,5 @@ std::vector<Vec3d> compute_crossfield(
 	return crossfield;
 }
 
+}
 }
