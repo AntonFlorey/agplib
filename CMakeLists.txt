@@ -40,6 +40,7 @@ include_directories("src")
 # module (pybind11)
 pybind11_add_module (
     _agplib
+    src/trimesh.cpp
     src/wrapper/bindAGPLib.cpp
     src/wrapper/bindUtil.cpp
     src/wrapper/bindPatchGraph.cpp
